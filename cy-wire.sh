@@ -21,6 +21,20 @@ then
 fi
 
 
+if [  -d "tmp" ]
+then
+
+    echo "Le dosser tmp existe, suppression de son contenu."
+    #rm tmp/*
+
+else
+
+
+fi
+
+
+
+
 
 case $station in  #Identification de la station
 
@@ -31,7 +45,7 @@ case $station in  #Identification de la station
         if [ "$client" = "comp" ] # Vérification option
         then
             echo "Option hvb entreprise -> suite en c."
-                
+
         else
 
             echo "Erreur Option impossible avec les hvb, seul les entreprise peuvent être raccorder au hvb."
@@ -48,8 +62,8 @@ case $station in  #Identification de la station
         if [ "$client" = "comp" ] # Vérification option
         then
             echo "Option hva entreprise -> suite en c."
-                
-        else  
+
+        else
 
             echo "Erreur Option impossible avec les hva, seul les entreprise peuvent être raccorder au hva."
             exit 2
@@ -102,9 +116,3 @@ case $station in  #Identification de la station
     ;;
 
 esac
-
-
-
-
-
-
