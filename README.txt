@@ -4,7 +4,7 @@ README cy-wire :
 
 ligne de commande type
 
-"./cy-wire.sh <Fichier de donner> <Type de station> <type de consommateur>"
+"./cy-wire.sh input/<Fichier de donner> <Type de station> <type de consommateur>"
 
 <ficier de donner> = nomfichier.csv
 
