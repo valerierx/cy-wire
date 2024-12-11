@@ -1,118 +1,141 @@
 #!/bin/bash
 
 
-fichier=$1
-station=$2
-client=$3
-
-
-if [ ! -f $fichier ] #assertion
-then
-
-    echo "Erreur : Le premier argument n'est pas un fichier ou il n'existe pas"
-    exit 0
-
-elif [[ ! $fichier = *.csv ]] #Double crochet nécessaire pour comparer avec le metacraractere *
-then
-
-    echo "Erreur fichier au mauvais format"
-    exit 0
-
-fi
-
-
-if [  -d "tmp" ]
-then
-
-    echo "Le dosser tmp existe, suppression de son contenu."
-    #rm tmp/*
-
-else
-
-
-fi
 
 
 
+getopts "h" opt
 
 
-case $station in  #Identification de la station
+case $opt in 
 
-    hvb)
+    h)
 
-        echo "ça marche, étudion les hvb"
-
-        if [ "$client" = "comp" ] # Vérification option
-        then
-            echo "Option hvb entreprise -> suite en c."
-
-        else
-
-            echo "Erreur Option impossible avec les hvb, seul les entreprise peuvent être raccorder au hvb."
-            exit 2
-
-        fi
+    cat README.txt   
 
     ;;
 
-    hva)
-
-        echo "ça marche, étudion les hva"
-
-        if [ "$client" = "comp" ] # Vérification option
-        then
-            echo "Option hva entreprise -> suite en c."
-
-        else
-
-            echo "Erreur Option impossible avec les hva, seul les entreprise peuvent être raccorder au hva."
-            exit 2
-
-        fi
+    ?)
 
 
-    ;;
 
-    lv)
+    fichier=$1
+    station=$2
+    client=$3
 
-        echo "ça marche, étudions les lv"
 
-        case $client in # Vérification option
+    if [ ! -f $fichier ] #assertion
+    then
 
-            comp)
+        echo "Erreur : Le premier argument n'est pas un fichier ou il n'existe pas"
+        exit 0
 
-                echo "lv -> comp"
+    elif [[ ! $fichier = *.csv ]] #Double crochet nécessaire pour comparer avec le metacraractere *
+    then
 
-            ;;
+        echo "Erreur fichier au mauvais format"
+        exit 0
 
-            indiv)
+    fi
 
-                echo "lv -> indiv"
 
-            ;;
+    if [  -d "tmp" ]
+    then
 
-            all)
+        echo "Le dosser tmp existe, suppression de son contenu."
+        #rm tmp/*
 
-                echo " lv -> all"
+    fi
 
-            ;;
 
-            *)
+    
 
-                echo "Erreur Option lv, option voulu : comp, indiv, all."
-                exit 4
 
-            ;;
 
-            esac
 
-    ;;
 
-    *)
+    case $station in  #Identification de la station
 
-        echo "Erreur : l'option de station est incorrecte"
-        exit 1
+        hvb)
 
-    ;;
+            echo "ça marche, étudion les hvb"
+
+            if [ "$client" = "comp" ] # Vérification option
+            then
+                echo "Option hvb entreprise -> suite en c."
+
+            else
+
+                echo "Erreur Option impossible avec les hvb, seul les entreprise peuvent être raccorder au hvb."
+                exit 2
+
+            fi
+
+        ;;
+
+        hva)
+
+            echo "ça marche, étudion les hva"
+
+            if [ "$client" = "comp" ] # Vérification option
+            then
+                echo "Option hva entreprise -> suite en c."
+
+            else
+
+                echo "Erreur Option impossible avec les hva, seul les entreprise peuvent être raccorder au hva."
+                exit 2
+
+            fi
+
+
+        ;;
+
+        lv)
+
+            echo "ça marche, étudions les lv"
+
+            case $client in # Vérification option
+
+                comp)
+
+                    echo "lv -> comp"
+
+                ;;
+
+                indiv)
+
+                    echo "lv -> indiv"
+
+                ;;
+
+                all)
+
+                    echo " lv -> all"
+
+                ;;
+
+                *)
+
+                    echo "Erreur Option lv, option voulu : comp, indiv, all."
+                    exit 4
+
+                ;;
+
+                esac
+
+        ;;
+
+        *)
+
+            echo "Erreur : l'option de station est incorrecte"
+            exit 1
+
+        ;;
+
+    esac
+
+
+??
 
 esac
