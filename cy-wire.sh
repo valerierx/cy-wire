@@ -1,9 +1,6 @@
 #!/bin/bash
 
 
-
-
-
 getopts "h" opt
 
 
@@ -30,7 +27,7 @@ case $opt in
         echo "Erreur : Le premier argument n'est pas un fichier ou il n'existe pas"
         exit 0
 
-    elif [[ ! $fichier = *.csv ]] #Double crochet nécessaire pour comparer avec le metacraractere *
+    elif [[ ! $fichier = *.csv && ! $fichier = *.dat ]] #Double crochet nécessaire pour comparer avec le metacraractere *
     then
 
         echo "Erreur fichier au mauvais format"
@@ -43,7 +40,7 @@ case $opt in
     then
 
         echo "Le dosser tmp existe, suppression de son contenu."
-        #rm tmp/*
+        rm tmp/*
 
     fi
 
