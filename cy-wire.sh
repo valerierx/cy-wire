@@ -1,9 +1,10 @@
 #!/bin/bash
 
 
+
+
 getopts "h" opt
-
-
+#A faire boucle qui vérifie tout les arg pour voir si un -h traine.
 case $opt in 
 
     h)
@@ -140,6 +141,6 @@ case $opt in
     esac
 
 
-??
+;;
 
 esac
