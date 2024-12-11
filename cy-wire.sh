@@ -41,10 +41,16 @@ case $opt in
     if [  -d "tmp" ]
     then
 
-        echo "Le dosser tmp existe, suppression de son contenu."
+        echo "Le dossier tmp existe, suppression de son contenu."
         rm tmp/*
 
+    else
+
+        echo "Le dossier tmp existe pas, création du dossier"
+        mkdir tmp
+
     fi
+
 
 
     
