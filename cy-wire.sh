@@ -25,12 +25,14 @@ case $opt in
     then
 
         echo "Erreur : Le premier argument n'est pas un fichier ou il n'existe pas"
+        cat README.txt   
         exit 0
 
     elif [[ ! $fichier = *.csv && ! $fichier = *.dat ]] #Double crochet nécessaire pour comparer avec le metacraractere *
     then
 
         echo "Erreur fichier au mauvais format"
+        cat README.txt   
         exit 0
 
     fi
@@ -55,7 +57,6 @@ case $opt in
 
         hvb)
 
-            echo "ça marche, étudion les hvb"
 
             if [ "$client" = "comp" ] # Vérification option
             then
@@ -63,7 +64,8 @@ case $opt in
 
             else
 
-                echo "Erreur Option impossible avec les hvb, seul les entreprise peuvent être raccorder au hvb."
+                echo "Erreur Option impossible avec les hvb"
+                cat README.txt   
                 exit 2
 
             fi
@@ -72,15 +74,14 @@ case $opt in
 
         hva)
 
-            echo "ça marche, étudion les hva"
-
             if [ "$client" = "comp" ] # Vérification option
             then
                 echo "Option hva entreprise -> suite en c."
 
             else
 
-                echo "Erreur Option impossible avec les hva, seul les entreprise peuvent être raccorder au hva."
+                echo "Erreur Option impossible avec les hva"
+                cat README.txt   
                 exit 2
 
             fi
@@ -89,8 +90,6 @@ case $opt in
         ;;
 
         lv)
-
-            echo "ça marche, étudions les lv"
 
             case $client in # Vérification option
 
@@ -114,7 +113,8 @@ case $opt in
 
                 *)
 
-                    echo "Erreur Option lv, option voulu : comp, indiv, all."
+                    echo "Erreur Option lv"
+                    cat README.txt   
                     exit 4
 
                 ;;
@@ -126,6 +126,7 @@ case $opt in
         *)
 
             echo "Erreur : l'option de station est incorrecte"
+            cat README.txt   
             exit 1
 
         ;;
