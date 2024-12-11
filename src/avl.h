@@ -1,35 +1,41 @@
 #ifndef AVL_H_
 #define AVL_H_
 
-typedef struct avl {
-    int elmt;
-    struct avl * gauche;
-    struct avl * droit;
-    int equilibre;
-}AVL;
+typedef struct station {
+    int identifiant;
+    int capacite;
+    int consommation;
+    int type;
+    struct  station* gauche;
+    struct station* droit;
+}Station;
 
-AVL * creationAVL(int donne);
-int estVide(AVL * a);
-int estFeuille(AVL * a);
-int element(AVL * a);
-int existeFilsGauche(AVL * a);
-int existeFilsDroit(AVL * a);
-void traiter(AVL * a);
-void parcoursPrefixe(AVL * a);
-void parcoursPostfixe(AVL * a);
-void parcoursInfixe(AVL * a);
-int recherche(AVL * a, int elt);
-int verifDroit(AVL * a, int min);
-int verifGauche(AVL * a, int max);
-int estABR(AVL * a);
-AVL * rotationGauche(AVL * a);
-AVL * rotationDroite(AVL * a);
-AVL * doubleRotationGauche(AVL * a);
-AVL * doubleRotationDroite(AVL * a);
-AVL * equilibrerAVL(AVL * a);
-AVL * insererAVL(AVL * a, int elt, int * h);
-AVL * suppMinAVL(AVL * a, int * h, int * pe);
-AVL * suppressionAVL(AVL * a, int element, int * pElement);
+typedef Station* HVB;
+typedef Station* HVA;
+typedef Station* LV;
+
+Station * creationAVL(int donne);
+int estVide(Station * a);
+int estFeuille(Station * a);
+int element(Station * a);
+int existeFilsGauche(Station * a);
+int existeFilsDroit(Station * a);
+void traiter(Station * a);
+void parcoursPrefixe(Station * a);
+void parcoursPostfixe(Station * a);
+void parcoursInfixe(Station * a);
+int recherche(Station * a, int elt);
+int verifDroit(Station * a, int min);
+int verifGauche(Station * a, int max);
+int estABR(Station * a);
+Station * rotationGauche(Station * a);
+Station * rotationDroite(Station * a);
+Station * doubleRotationGauche(Station * a);
+Station * doubleRotationDroite(Station * a);
+Station * equilibrerAVL(Station * a);
+Station * insererAVL(Station * a, int elt, int * h);
+Station * suppMinAVL(Station * a, int * h, int * pe);
+Station * suppressionAVL(Station * a, int element, int * pElement);
 
 
 #endif
