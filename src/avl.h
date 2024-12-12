@@ -5,8 +5,6 @@ typedef struct station {
     int identifiant;
     int capacite;
     int consommation;
-    char type;
-    int equilibre;
     struct  station* gauche;
     struct station* droit;
 }Station;
