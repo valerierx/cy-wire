@@ -17,7 +17,7 @@ enum {
     INCONNU
 };
 # TODO: actualiser le .h
-Station * creationStation(int id, char type, int capacite, int consommation);  
+Station * creationStation(int id, int capacite, int consommation);  
 int estVide(Station * a);
 int estFeuille(Station * a);
 int element(Station * a);
