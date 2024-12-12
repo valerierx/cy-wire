@@ -5,12 +5,20 @@ typedef struct station {
     int identifiant;
     int capacite;
     int consommation;
-    int type;
+    char type;
+    int equilibre;
     struct  station* gauche;
     struct station* droit;
 }Station;
 
-Station * creationAVL(int donne);  
+enum {
+    CENTRALE,
+    HVA,
+    HVB,
+    LV
+};
+
+Station * creationStation(int id, char type, int capacite, int consommation);  
 int estVide(Station * a);
 int estFeuille(Station * a);
 int element(Station * a);

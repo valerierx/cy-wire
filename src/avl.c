@@ -5,17 +5,20 @@
 #define MIN(a,b) (((a)<(b))?(a):(b))
 #define MAX(a,b) (((a)>(b))?(a):(b))
 
-Station * creationAVL(int donne) {
-    Station * arb = malloc(sizeof(AVL));
-    if(arb == NULL) {
+Station * creationStation(int id, char type, int capacite, int consommation) {
+    Station * station = malloc(sizeof(Station));
+    if(station == NULL) {
         printf("Erreur malloc\n");
         exit(2);
     }
-    arb->elmt = donne;
-    arb->gauche = NULL;
-    arb->droit = NULL;
-    arb->equilibre = 0;
-    return arb;
+    station->identifiant = id;
+    station->type = type;
+    station->capacite = capacite;
+    station->consommation = consommation;
+    station->gauche = NULL;
+    station->droit = NULL;
+    station->equilibre = 0;
+    return station;
 }
 
 int estVide(Station * a) {
@@ -26,11 +29,6 @@ int estVide(Station * a) {
 int estFeuille(Station * a) {
     if(a == NULL) {return -1;}
     return (a->gauche == NULL) && (a->droit == NULL);
-} 
-
-int element(Station * a) {
-    if(a == NULL) {return -1;}
-    return a->elmt;
 }
 
 int existeFilsGauche(Station * a) {
@@ -43,7 +41,7 @@ int existeFilsDroit(Station * a) {
     return (a->droit != NULL);
 }
 
-void traiter(Station * a) {
+/*void traiter(Station * a) {
     printf("[%d %d] ", a->elmt, a->equilibre);
 }
 
@@ -72,18 +70,18 @@ void parcoursInfixe(Station * a) { // G R D
     parcoursInfixe(a->gauche);
     traiter(a);
     parcoursInfixe(a->droit);
-}
+}*/
 
-int recherche(Station * a, int elt) {
+int recherche(Station * a, int id) {
     if(a == NULL) {
         return 0;
     }
-    if(estFeuille(a) || elt == a->elmt) {
-        return (elt == a->elmt);
-    } else if(a->elmt > elt) {
-        return recherche(a->gauche, elt);
-    } else if(a->elmt <= elt) {
-        return recherche(a->droit, elt);
+    if(estFeuille(a) || id == a->identifiant) {
+        return (id == a->identifiant);
+    } else if(a->identifiant > id) {
+        return recherche(a->gauche, id);
+    } else if(a->identifiant <= id) {
+        return recherche(a->droit, id);
     }
 }
 
@@ -92,7 +90,7 @@ Station * suppMax(Station * a, int * e) {
     if(existeFilsDroit(a)) {
         a->droit = suppMax(a->droit, e);
     } else {
-        *e = a->elmt;
+        *e = a->identifiant;
         tmp = a;
         a = a->gauche;
         free(tmp);
@@ -105,21 +103,21 @@ int verifDroit(Station * a, int min) {
     if(a == NULL) {
         return 1;
     }
-    return a->elmt > min;
+    return a->identifiant > min;
 }
 
 int verifGauche(Station * a, int max) {
     if(a == NULL) {
         return 1;
     }
-    return a->elmt < max;
+    return a->identifiant < max;
 }
 
 int estABR(Station * a) {
     if(a == NULL) {
         return 1;
     }
-    if(!verifGauche(a->gauche, a->elmt) && !verifDroit(a->droit, a->elmt)) {
+    if(!verifGauche(a->gauche, a->identifiant) && !verifDroit(a->droit, a->identifiant)) {
         return 0;
     }
 
@@ -132,7 +130,7 @@ Station * rotationGauche(Station * a) {
     }
     //printf("Rotation gauche\n");
     int eq_a, eq_p;
-    AVL * pivot = a->droit;
+    Station * pivot = a->droit;
     a->droit = pivot->gauche;
     pivot->gauche = a;
 
@@ -166,7 +164,7 @@ Station * rotationDroite(Station * a) {
     return pivot;
 }
 
-Station * doubleRotationGauche(AVL * a) {
+Station * doubleRotationGauche(Station * a) {
     a->droit = rotationDroite(a->droit);
     return rotationGauche(a);
 }
@@ -193,15 +191,15 @@ Station * equilibrerAVL(Station * a) {
     return a;
 }
 
-Station * insererAVL(Station * a, int elt, int * h) {
+Station * insererStation(Station * a, int id, char type, int capacite, int consommation, int * h) {
     if(estVide(a)) {
         *h = 1;
-        return creationAVL(elt);
-    } else if(elt < a->elmt) {
-        a->gauche = insererAVL(a->gauche, elt, h);
+        return creationStation(id, type, capacite, consommation);
+    } else if(id < a->identifiant) {
+        a->gauche = insererStation(a->gauche, id, type, capacite, consommation, h);
         *h = -*h;
-    } else if(elt > a->elmt) {
-        a->droit = insererAVL(a->droit, elt, h);
+    } else if(id > a->identifiant) {
+        a->droit = insererStation(a->droit, id, type, capacite, consommation, h);
     } else {
         *h = 0;
         return a;
@@ -220,17 +218,17 @@ Station * insererAVL(Station * a, int elt, int * h) {
     return a;
 }
 
-Station * suppMinAVL(Station * a, int * h, int * pe) {
+Station * suppMinStation(Station * a, int * h, int * pe) {
     Station * tmp = NULL;
     if(a->gauche == NULL) {
-        *pe = a->elmt;
+        *pe = a->identifiant;
         *h = -1;
         tmp = a;
         a = a->droit;
         free(tmp);
         return a;
     } else {
-        a->gauche = suppMinAVL(a->gauche, h, pe);
+        a->gauche = suppMinStation(a->gauche, h, pe);
         *h = -*h;
     }
     if(*h != 0) {
@@ -245,19 +243,19 @@ Station * suppMinAVL(Station * a, int * h, int * pe) {
     return a;
 }
 
-Station * suppressionAVL(Station * a, int element, int * pElement) {
+Station * suppressionStation(Station * a, int id, int * pElement) {
     Station * tmp;
 
     if(a == NULL) {
         *pElement = 1;
         return a;
-    } else if(element > a->elmt) {
-        a->droit = suppressionAVL(a->droit, element, pElement);
-    } else if(element < a->elmt) {
-        a->gauche = suppressionAVL(a->gauche, element, pElement);
+    } else if(id > a->identifiant) {
+        a->droit = suppressionStation(a->droit, id, pElement);
+    } else if(id < a->identifiant) {
+        a->gauche = suppressionStation(a->gauche, id, pElement);
         *pElement = -*pElement;
     } else if(existeFilsDroit(a)) {
-        a->droit = suppMinAVL(a->droit, pElement, &a->elmt);
+        a->droit = suppMinStation(a->droit, pElement, &a->identifiant);
     } else {
         tmp = a;
         a = a->gauche;
