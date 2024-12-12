@@ -5,9 +5,8 @@
 #define MIN(a,b) (((a)<(b))?(a):(b))
 #define MAX(a,b) (((a)>(b))?(a):(b))
 
-AVL * creationAVL(int donne) {
-    AVL * arb = NULL;
-    arb = malloc(sizeof(AVL));
+Station * creationAVL(int donne) {
+    Station * arb = malloc(sizeof(AVL));
     if(arb == NULL) {
         printf("Erreur malloc\n");
         exit(2);
@@ -19,36 +18,36 @@ AVL * creationAVL(int donne) {
     return arb;
 }
 
-int estVide(AVL * a) {
+int estVide(Station * a) {
     if(a == NULL) {return -1;}
     return a == NULL;
 }
 
-int estFeuille(AVL * a) {
+int estFeuille(Station * a) {
     if(a == NULL) {return -1;}
     return (a->gauche == NULL) && (a->droit == NULL);
 } 
 
-int element(AVL * a) {
+int element(Station * a) {
     if(a == NULL) {return -1;}
     return a->elmt;
 }
 
-int existeFilsGauche(AVL * a) {
+int existeFilsGauche(Station * a) {
     if(a == NULL) {return -1;}
     return (a->gauche != NULL);
 }
 
-int existeFilsDroit(AVL * a) {
+int existeFilsDroit(Station * a) {
     if(a == NULL) {return -1;}
     return (a->droit != NULL);
 }
 
-void traiter(AVL * a) {
+void traiter(Station * a) {
     printf("[%d %d] ", a->elmt, a->equilibre);
 }
 
-void parcoursPrefixe(AVL * a) { // R G D
+void parcoursPrefixe(Station * a) { // R G D
     if(estVide(a)) {
         return;
     }
@@ -57,7 +56,7 @@ void parcoursPrefixe(AVL * a) { // R G D
     parcoursPrefixe(a->droit);
 }
 
-void parcoursPostfixe(AVL * a) { // G D R
+void parcoursPostfixe(Station * a) { // G D R
     if(estVide(a)) {
         return;
     }
@@ -66,7 +65,7 @@ void parcoursPostfixe(AVL * a) { // G D R
     traiter(a);
 }
 
-void parcoursInfixe(AVL * a) { // G R D
+void parcoursInfixe(Station * a) { // G R D
     if(estVide(a)) {
         return;
     }
@@ -75,7 +74,7 @@ void parcoursInfixe(AVL * a) { // G R D
     parcoursInfixe(a->droit);
 }
 
-int recherche(AVL * a, int elt) {
+int recherche(Station * a, int elt) {
     if(a == NULL) {
         return 0;
     }
@@ -88,8 +87,8 @@ int recherche(AVL * a, int elt) {
     }
 }
 
-AVL * suppMax(AVL * a, int * e) {
-    AVL * tmp = NULL;
+Station * suppMax(Station * a, int * e) {
+    Station * tmp = NULL;
     if(existeFilsDroit(a)) {
         a->droit = suppMax(a->droit, e);
     } else {
@@ -102,21 +101,21 @@ AVL * suppMax(AVL * a, int * e) {
 }
 
 
-int verifDroit(AVL * a, int min) {
+int verifDroit(Station * a, int min) {
     if(a == NULL) {
         return 1;
     }
     return a->elmt > min;
 }
 
-int verifGauche(AVL * a, int max) {
+int verifGauche(Station * a, int max) {
     if(a == NULL) {
         return 1;
     }
     return a->elmt < max;
 }
 
-int estABR(AVL * a) {
+int estABR(Station * a) {
     if(a == NULL) {
         return 1;
     }
@@ -127,7 +126,7 @@ int estABR(AVL * a) {
     return estABR(a->gauche) && estABR(a->droit);
 }
 
-AVL * rotationGauche(AVL * a) {
+Station * rotationGauche(Station * a) {
     if(a == NULL) {
         exit(2);
     }
@@ -146,13 +145,13 @@ AVL * rotationGauche(AVL * a) {
     return pivot;
 }
 
-AVL * rotationDroite(AVL * a) {
+Station * rotationDroite(Station * a) {
     if(a == NULL) {
         exit(2);
     }
     //printf("Rotation droite\n");
     int eq_a, eq_p;
-    AVL * pivot = a->gauche;
+    Station * pivot = a->gauche;
     a->gauche = pivot->droit;
     pivot->droit = a;
 
@@ -167,17 +166,17 @@ AVL * rotationDroite(AVL * a) {
     return pivot;
 }
 
-AVL * doubleRotationGauche(AVL * a) {
+Station * doubleRotationGauche(AVL * a) {
     a->droit = rotationDroite(a->droit);
     return rotationGauche(a);
 }
 
-AVL * doubleRotationDroite(AVL * a) {
+Station * doubleRotationDroite(Station * a) {
     a->gauche = rotationGauche(a->gauche);
     return rotationDroite(a);
 }
 
-AVL * equilibrerAVL(AVL * a) {
+Station * equilibrerAVL(Station * a) {
     if(a->equilibre >= 2) {
         if(a->droit->equilibre >= 0) {
             return rotationGauche(a);
@@ -194,7 +193,7 @@ AVL * equilibrerAVL(AVL * a) {
     return a;
 }
 
-AVL * insererAVL(AVL * a, int elt, int * h) {
+Station * insererAVL(Station * a, int elt, int * h) {
     if(estVide(a)) {
         *h = 1;
         return creationAVL(elt);
@@ -221,8 +220,8 @@ AVL * insererAVL(AVL * a, int elt, int * h) {
     return a;
 }
 
-AVL * suppMinAVL(AVL * a, int * h, int * pe) {
-    AVL * tmp = NULL;
+Station * suppMinAVL(Station * a, int * h, int * pe) {
+    Station * tmp = NULL;
     if(a->gauche == NULL) {
         *pe = a->elmt;
         *h = -1;
@@ -246,8 +245,8 @@ AVL * suppMinAVL(AVL * a, int * h, int * pe) {
     return a;
 }
 
-AVL * suppressionAVL(AVL * a, int element, int * pElement) {
-    AVL * tmp;
+Station * suppressionAVL(Station * a, int element, int * pElement) {
+    Station * tmp;
 
     if(a == NULL) {
         *pElement = 1;
