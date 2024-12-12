@@ -4,13 +4,16 @@ LDFLAGS=
 
 all: cy-wire
 
-cy-wire: avl.o main.o
+cy-wire: avl.o csv.o main.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 avl.o: avl.c
 	$(CC) -o $@ -c $< $(CFLAGS)
 
-main.o: main.c avl.c
+csv.o: csv.c
+	$(CC) -o $@ -c $< $(CFLAGS)
+
+main.o: main.c avl.c csv.c
 	$(CC) -o $@ -c $< $(CFLAGS)
 
 clean:
