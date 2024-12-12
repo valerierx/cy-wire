@@ -10,11 +10,7 @@ typedef struct station {
     struct station* droit;
 }Station;
 
-typedef Station* HVB;
-typedef Station* HVA;
-typedef Station* LV;
-
-Station * creationAVL(int donne);
+Station * creationAVL(int donne);  
 int estVide(Station * a);
 int estFeuille(Station * a);
 int element(Station * a);
