@@ -15,9 +15,10 @@ enum {
     CENTRALE,
     HVA,
     HVB,
-    LV
+    LV,
+    INCONNU
 };
-
+# TODO: actualiser le .h
 Station * creationStation(int id, char type, int capacite, int consommation);  
 int estVide(Station * a);
 int estFeuille(Station * a);
