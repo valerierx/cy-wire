@@ -23,7 +23,7 @@ int nbLigne(FILE* fichier){
         if(caractere=='\n'){
             nbr_ligne++;
         }
-        return nbr_ligne;
-    }
 
+    }
+ return nbr_ligne;
 }
