@@ -85,7 +85,7 @@ int recherche(Station * a, int id) {
     }
 }
 
-Station * suppMax(Station * a, int * e) {
+/*Station * suppMax(Station * a, int * e) {
     Station * tmp = NULL;
     if(existeFilsDroit(a)) {
         a->droit = suppMax(a->droit, e);
@@ -96,10 +96,10 @@ Station * suppMax(Station * a, int * e) {
         free(tmp);
     }
     return a;
-}
+}*/
 
 
-int verifDroit(Station * a, int min) {
+/*int verifDroit(Station * a, int min) {
     if(a == NULL) {
         return 1;
     }
@@ -122,7 +122,7 @@ int estABR(Station * a) {
     }
 
     return estABR(a->gauche) && estABR(a->droit);
-}
+}*/
 
 Station * rotationGauche(Station * a) {
     if(a == NULL) {
@@ -218,7 +218,7 @@ Station * insererStation(Station * a, int id, char type, int capacite, int conso
     return a;
 }
 
-Station * suppMinStation(Station * a, int * h, int * pe) {
+/*Station * suppMinStation(Station * a, int * h, int * pe) {
     Station * tmp = NULL;
     if(a->gauche == NULL) {
         *pe = a->identifiant;
@@ -273,4 +273,4 @@ Station * suppressionStation(Station * a, int id, int * pElement) {
         }
     }
     return a;
-}
+}*/
