@@ -5,14 +5,13 @@
 #define MIN(a,b) (((a)<(b))?(a):(b))
 #define MAX(a,b) (((a)>(b))?(a):(b))
 
-Station * creationStation(int id, char type, int capacite, int consommation) {
+Station * creationStation(int id, int capacite, int consommation) {
     Station * station = malloc(sizeof(Station));
     if(station == NULL) {
         printf("Erreur malloc\n");
         exit(2);
     }
     station->identifiant = id;
-    station->type = type;
     station->capacite = capacite;
     station->consommation = consommation;
     station->gauche = NULL;
@@ -191,15 +190,15 @@ Station * equilibrerAVL(Station * a) {
     return a;
 }
 
-Station * insererStation(Station * a, int id, char type, int capacite, int consommation, int * h) {
+Station * insererStation(Station * a, int id,  int capacite, int consommation, int * h) {
     if(estVide(a)) {
         *h = 1;
-        return creationStation(id, type, capacite, consommation);
+        return creationStation(id, capacite, consommation);
     } else if(id < a->identifiant) {
-        a->gauche = insererStation(a->gauche, id, type, capacite, consommation, h);
+        a->gauche = insererStation(a->gauche, id, capacite, consommation, h);
         *h = -*h;
     } else if(id > a->identifiant) {
-        a->droit = insererStation(a->droit, id, type, capacite, consommation, h);
+        a->droit = insererStation(a->droit, id, capacite, consommation, h);
     } else {
         *h = 0;
         return a;
@@ -216,6 +215,21 @@ Station * insererStation(Station * a, int id, char type, int capacite, int conso
         }
     }
     return a;
+}
+
+Station* rechercheNoeud(Station* racine,int id){
+    if(racine==NULL){
+        return NULL;
+    }
+    if(id==racine->identifiant){
+        return racine;
+    }
+    else if(id<racine->identifiant){
+        return rechercheNoeud(racine->gauche,id);
+    }
+    else{
+    return rechercheNoeud(racine->droite,id);
+    }
 }
 
 /*Station * suppMinStation(Station * a, int * h, int * pe) {
