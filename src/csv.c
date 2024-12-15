@@ -14,11 +14,16 @@ Station* lecture_fichier(Station * fstation){
     if(fichier==NULL){
         exit(1);
     }
-    while(fscanf(fichier,"%d;%d;%d;%d",&identifiant,&capacite,&consommation)!=EOF){
-        int id_tmp=fstation->identifiant;
-        if(fstation->identifiant!=identifiant){
-            insererStation(fstation, identifiant, capacite, consommation);
+}
+ 
+int nbLigne(FILE* fichier){
+    int nbr_ligne=1;
+    char caractere;
+    while((caractere=fgetc(fichier))!=EOF){
+        if(caractere=='\n'){
+            nbr_ligne++;
         }
+        return nbr_ligne;
     }
-    return 
+
 }
