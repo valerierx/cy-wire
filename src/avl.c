@@ -190,7 +190,7 @@ Station * equilibrerAVL(Station * a) {
     return a;
 }
 
-Station * insererStation(Station * a, int id,  int capacite, int consommation, int * h) {
+Station * insererStation(Station * a, int id,  int capacite, int consommation, int * h) { 
     if(estVide(a)) {
         *h = 1;
         return creationStation(id, capacite, consommation);
@@ -217,7 +217,7 @@ Station * insererStation(Station * a, int id,  int capacite, int consommation, i
     return a;
 }
 
-Station* rechercheNoeud(Station* racine,int id){
+Station * rechercheNoeud(Station * racine,int id){
     if(racine==NULL){
         return NULL;
     }
@@ -228,7 +228,7 @@ Station* rechercheNoeud(Station* racine,int id){
         return rechercheNoeud(racine->gauche,id);
     }
     else{
-    return rechercheNoeud(racine->droite,id);
+    return rechercheNoeud(racine->droit,id);
     }
 }
 
