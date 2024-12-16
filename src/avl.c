@@ -40,8 +40,8 @@ int existeFilsDroit(Station * a) {
     return (a->droit != NULL);
 }
 
-/*void traiter(Station * a) {
-    printf("[%d %d] ", a->elmt, a->equilibre);
+void traiter(Station * a) {
+    printf("[id = %d, cap = %d, conso = %d, equi = %d]\n", a->identifiant, a->capacite, a->consommation, a->equilibre);
 }
 
 void parcoursPrefixe(Station * a) { // R G D
@@ -52,7 +52,7 @@ void parcoursPrefixe(Station * a) { // R G D
     parcoursPrefixe(a->gauche);
     parcoursPrefixe(a->droit);
 }
-
+/*
 void parcoursPostfixe(Station * a) { // G D R
     if(estVide(a)) {
         return;
@@ -95,10 +95,10 @@ int recherche(Station * a, int id) {
         free(tmp);
     }
     return a;
-}*/
+}
 
 
-/*int verifDroit(Station * a, int min) {
+int verifDroit(Station * a, int min) {
     if(a == NULL) {
         return 1;
     }
@@ -121,8 +121,8 @@ int estABR(Station * a) {
     }
 
     return estABR(a->gauche) && estABR(a->droit);
-}*/
-
+}
+*/
 Station * rotationGauche(Station * a) {
     if(a == NULL) {
         exit(2);

@@ -23,6 +23,7 @@ int estFeuille(Station * a);
 int existeFilsGauche(Station * a);
 int existeFilsDroit(Station * a);
 int recherche(Station * a, int elt);
+void parcoursPrefixe(Station * a);
 Station * rotationGauche(Station * a);
 Station * rotationDroite(Station * a);
 Station * doubleRotationGauche(Station * a);

@@ -33,15 +33,3 @@ Station* lecture_fichier(Station * fstation){
     fclose(fichier);
     return fstation;
 }
- 
-/*int nbLigne(FILE* fichier){
-    int nbr_ligne=1;
-    char caractere;
-    while((caractere=fgetc(fichier))!=EOF){
-        if(caractere=='\n'){
-            nbr_ligne++;
-        }
-
-    }
- return nbr_ligne;
-}*/
