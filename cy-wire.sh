@@ -1,6 +1,11 @@
 #!/bin/bash
 
+set -e # le programme se termine si l'une des commandes retourne une erreur
 
+if [ ! -f cy-wire ]; then
+    echo "Avertissement: l'exécutable cy-wire n'a pas été trouvé, lancement de la compilation"
+    make -j$(nproc)
+fi
 
 for i in $@
         do

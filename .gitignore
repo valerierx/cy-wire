@@ -29,6 +29,7 @@
 *.dylib
 
 # Executables
+cy-wire
 *.exe
 *.out
 *.app
