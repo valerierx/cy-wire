@@ -1,7 +1,7 @@
 all: c
 
 c:
-	make -C src/ cy-wire
+	make -C src/
 
 mrproper:
 	make -C src/ mrproper
