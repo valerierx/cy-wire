@@ -11,11 +11,11 @@ for i in $@
         do
 	    if [ "$i" = "-h" ]
         then
-            cat README.txt
+            cat README.md
             exit 0
         fi
 
-done	
+done
 
 
 fichier=$1
@@ -27,14 +27,14 @@ if [ ! -f $fichier ] #assertion
 then
 
     echo "Erreur : Le premier argument n'est pas un fichier ou il n'existe pas"
-    cat README.txt   
+    cat README.md
     exit 0
 
 elif [[ ! $fichier = *.csv && ! $fichier = *.dat ]] #Double crochet nécessaire pour comparer avec le metacraractere *
 then
 
     echo "Erreur fichier au mauvais format"
-    cat README.txt   
+    cat README.md
     exit 0
 
 fi
@@ -69,7 +69,7 @@ case $station in  #Identification de la station
         else
 
             echo "Erreur Option impossible avec les hvb"
-            cat README.txt   
+            cat README.md
             exit 2
 
         fi
@@ -85,7 +85,7 @@ case $station in  #Identification de la station
         else
 
             echo "Erreur Option impossible avec les hva"
-            cat README.txt   
+            cat README.md
             exit 2
 
         fi
@@ -118,7 +118,7 @@ case $station in  #Identification de la station
             *)
 
                 echo "Erreur Option lv"
-                cat README.txt   
+                cat README.md
                 exit 4
 
             ;;
@@ -130,7 +130,7 @@ case $station in  #Identification de la station
     *)
 
         echo "Erreur : l'option de station est incorrecte"
-        cat README.txt   
+        cat README.md
         exit 1
 
     ;;
