@@ -70,6 +70,13 @@ else
 
 fi
 
+if [ ! -d "output" ]
+then
+
+    echo "Le dossier output n'existe pas, création du dossier"
+    mkdir output
+fi
+
 
 
 chrono1=`date +%s` #début du chronometrage du traitement
