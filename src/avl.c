@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include<string.h>
 #include "avl.h"
 
 #define MIN(a,b) (((a)<(b))?(a):(b))
 #define MAX(a,b) (((a)>(b))?(a):(b))
 
-Station * creationStation(int id, int capacite, int consommation) {
+Station * creationStation(int id, long long capacite, long long consommation) {
     Station * station = malloc(sizeof(Station));
     if(station == NULL) {
         printf("Erreur malloc\n");
@@ -41,17 +42,24 @@ int existeFilsDroit(Station * a) {
 }
 
 void traiter(Station * a) {
-    printf("[id = %d, cap = %d, conso = %d, equi = %d]\n", a->identifiant, a->capacite, a->consommation, a->equilibre);
+    FILE* renvois=fopen("renvois.csv","a+");
+      if(renvois==NULL){
+        printf("Impossible d'ouvrir le fichier\n");
+        exit(1);
+    }
+    fprintf(renvois,"%d;%lld;%lld\n",a->identifiant,a->capacite,a->consommation);
+    printf("[id = %d, cap = %lld, conso = %lld, equi = %d]\n", a->identifiant, a->capacite, a->consommation, a->equilibre);
 }
 
-void parcoursPrefixe(Station * a) { // R G D
+/*void parcoursPrefixe(Station * a) { // R G D
     if(estVide(a)) {
         return;
     }
     traiter(a);
     parcoursPrefixe(a->gauche);
     parcoursPrefixe(a->droit);
-}
+}*/
+
 /*
 void parcoursPostfixe(Station * a) { // G D R
     if(estVide(a)) {
@@ -61,17 +69,17 @@ void parcoursPostfixe(Station * a) { // G D R
     parcoursPostfixe(a->droit);
     traiter(a);
 }
-
+*/
 void parcoursInfixe(Station * a) { // G R D
     if(estVide(a)) {
         return;
     }
-    parcoursInfixe(a->gauche);
-    traiter(a);
     parcoursInfixe(a->droit);
-}*/
+    traiter(a);
+    parcoursInfixe(a->gauche);
+}
 
-int recherche(Station * a, int id) {
+/*int recherche(Station * a, int id) {
     if(a == NULL) {
         return 0;
     }
@@ -82,7 +90,7 @@ int recherche(Station * a, int id) {
     } else if(a->identifiant <= id) {
         return recherche(a->droit, id);
     }
-}
+}*/
 
 /*Station * suppMax(Station * a, int * e) {
     Station * tmp = NULL;
@@ -190,7 +198,7 @@ Station * equilibrerAVL(Station * a) {
     return a;
 }
 
-Station * insererStation(Station * a, int id,  int capacite, int consommation, int * h) { 
+Station * insererStation(Station * a, int id,  long long capacite, long long consommation, int * h) { 
     if(estVide(a)) {
         *h = 1;
         return creationStation(id, capacite, consommation);

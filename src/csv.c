@@ -28,7 +28,7 @@ Station* lecture_fichier(Station * fstation){
             noeud->capacite=noeud->capacite+capacite;
             noeud->consommation=noeud->consommation+consommation;
             if((noeud->capacite - noeud->consommation)<0){
-                surconsommation=-(noeud->capacite - noeud->consommation)
+                surconsommation=-(noeud->capacite - noeud->consommation);
                 printf("La station %d est en surconsommation de %d ",id,surconsommation);
             }
         } else {
