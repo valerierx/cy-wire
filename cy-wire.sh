@@ -99,7 +99,7 @@ case $station in  #Identification de la station
             ./cy-wire tmp/data.txt
 
             mv output/renvois.csv output/hvb_comp$extension.csv
-            sed -i "1i Station;Capacité;Consommation" output/hvb_comp$extension.csv
+            sed -i "1i Station;Capacite;Consommation" output/hvb_comp$extension.csv
 
 
         else
@@ -118,11 +118,12 @@ case $station in  #Identification de la station
         then
 
             echo "Option hva entreprise"
-
             grep -E "$power;.*;.*;.*;.*;.*;.*;.*$" $fichier | cut -d';' -f3,4,5,7,8 | grep -E "^[0-9]+;-;.*;.*;.*$" | cut -d';' -f1,4,5 | tr "-" "0" > tmp/data.txt
 
+            ./cy-wire tmp/data.txt
+
             mv output/renvois.csv output/hva_comp$extension.csv
-            sed -i "1i Station;Capacité;Consommation" output/hva_comp$extension.csv
+            sed -i "1i Station;Capacite;Consommation" output/hva_comp$extension.csv
 
 
         else
@@ -145,8 +146,10 @@ case $station in  #Identification de la station
                 echo "lv -> comp"
                 grep -E "$power;.*;.*;.*;.*;.*;.*;.*$" $fichier | cut -d';' -f4,5,6,7,8 | grep -E "^[0-9]+;.*;-;.*;.*$" | cut -d';' -f1,4,5 | tr "-" "0" > tmp/data.txt
 
+                ./cy-wire tmp/data.txt
+     
                 mv output/renvois.csv output/lv_comp$extension.csv
-                sed -i "1i Station;Capacité;Consommation" output/lv_comp$extension.csv
+                sed -i "1i Station;Capacite;Consommation" output/lv_comp$extension.csv
 
 
             ;;
@@ -156,9 +159,10 @@ case $station in  #Identification de la station
                 echo "lv -> indiv"
                 grep -E "$power;.*;.*;.*;.*;.*;.*;.*$" $fichier | cut -d';' -f4,5,6,7,8 | grep -E "^[0-9]+;-;.*$" | cut -d';' -f1,4,5 | tr "-" "0" > tmp/data.txt
 
+                ./cy-wire tmp/data.txt
 
                 mv output/renvois.csv output/lv_indiv$extension.csv
-                sed -i "1i Station;Capacité;Consommation" output/lv_indiv$extension.csv
+                sed -i "1i Station;Capacite;Consommation" output/lv_indiv$extension.csv
 
             ;;
 
@@ -167,8 +171,10 @@ case $station in  #Identification de la station
                 echo " lv -> all"
                 grep -E "$power;.*;.*;.*;.*;.*;.*;.*$" $fichier | cut -d';' -f4,5,6,7,8 | grep -E "^[0-9]+.*$" | cut -d';' -f1,4,5 | tr "-" "0" > tmp/data.txt
 
+                ./cy-wire tmp/data.txt
+
                 mv output/renvois.csv output/lv_all$extension.csv
-                sed -i "1i Station;Capacité;Consommation" output/lv_all$extension.csv
+                sed -i "1i Station;Capacite;Consommation" output/lv_all$extension.csv
 
             ;;
 
