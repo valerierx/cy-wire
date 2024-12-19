@@ -41,13 +41,8 @@ int existeFilsDroit(Station * a) {
     return (a->droit != NULL);
 }
 
-void traiter(Station * a) {
-    FILE* renvois=fopen("renvois.csv","a+");
-      if(renvois==NULL){
-        printf("Impossible d'ouvrir le fichier\n");
-        exit(1);
-    }
-    fprintf(renvois,"%d;%lld;%lld\n",a->identifiant,a->capacite,a->consommation);
+void traiter(Station * a, FILE * fichier) {
+    fprintf(fichier,"%d;%lld;%lld\n",a->identifiant,a->capacite,a->consommation);
     printf("[id = %d, cap = %lld, conso = %lld, equi = %d]\n", a->identifiant, a->capacite, a->consommation, a->equilibre);
 }
 
@@ -70,13 +65,13 @@ void parcoursPostfixe(Station * a) { // G D R
     traiter(a);
 }
 */
-void parcoursInfixe(Station * a) { // G R D
+void parcoursInfixe(Station * a, FILE * fichier) { // G R D
     if(estVide(a)) {
         return;
     }
-    parcoursInfixe(a->droit);
-    traiter(a);
-    parcoursInfixe(a->gauche);
+    parcoursInfixe(a->gauche, fichier);
+    traiter(a, fichier);
+    parcoursInfixe(a->droit, fichier);
 }
 
 /*int recherche(Station * a, int id) {
@@ -129,8 +124,8 @@ int estABR(Station * a) {
     }
 
     return estABR(a->gauche) && estABR(a->droit);
-}
-*/
+}*/
+
 Station * rotationGauche(Station * a) {
     if(a == NULL) {
         exit(2);

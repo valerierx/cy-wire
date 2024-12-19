@@ -1,6 +1,7 @@
 #ifndef AVL_H_
 #define AVL_H_
 
+#include <stdio.h>
 typedef struct station {
     int identifiant;
     long long capacite;
@@ -24,7 +25,7 @@ int existeFilsGauche(Station * a);
 int existeFilsDroit(Station * a);
 int recherche(Station * a, int elt);
 //void parcoursPrefixe(Station * a);
-void parcoursInfixe(Station * a);
+void parcoursInfixe(Station * a, FILE * fichier);
 Station * rotationGauche(Station * a);
 Station * rotationDroite(Station * a);
 Station * doubleRotationGauche(Station * a);
@@ -32,5 +33,4 @@ Station * doubleRotationDroite(Station * a);
 Station * equilibrerAVL(Station * a);
 Station * insererStation(Station * a, int id,  long long capacite, long long consommation, int * h);
 Station * rechercheNoeud(Station * racine,int id);
-
 #endif

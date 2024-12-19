@@ -4,8 +4,11 @@
 #include "csv.h"
 
 int main(int argc, char ** argv) {
+    if(argc != 2) {
+        printf("Erreur: nombre d'arguments incorrect. \n");
+    }
     Station * sta = NULL;
-    sta = lecture_fichier(sta);
-    parcoursInfixe(sta);
+    sta = lecture_fichier(argv[1], sta);
+    ecriture_fichier(sta);
     return 0;
 }
