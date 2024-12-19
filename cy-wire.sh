@@ -167,7 +167,12 @@ case $station in  #Identification de la station
 
                 ./cy-wire /tmp/cy-wire/data.txt
 
-                mv output/renvois.csv output/lv_all$extension.csv
+
+                head -n11 output/renvois.csv > output/lv_all_minmax$extension.csv
+                tail output/renvois.csv >> output/lv_all_minmax$extension.csv
+
+                rm output/renvois.csv
+
             ;;
 
             *)
