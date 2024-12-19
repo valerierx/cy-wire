@@ -1,12 +1,5 @@
 #!/bin/bash
 
-set -e # le programme se termine si l'une des commandes retourne une erreur
-
-if [ ! -f cy-wire ]; then
-    echo "Avertissement: l'exécutable cy-wire n'a pas été trouvé, lancement de la compilation"
-    make -j$(nproc)
-fi
-
 for i in $@
         do
 	    if [ "$i" = "-h" ]
@@ -16,6 +9,14 @@ for i in $@
         fi
 
 done
+
+
+#   set -e # le programme se termine si l'une des commandes retourne une erreur
+
+if [ ! -f cy-wire ]; then
+    echo "Avertissement: l'exécutable cy-wire n'a pas été trouvé, lancement de la compilation"
+    make -j$(nproc)
+fi
 
 
 fichier=$1
@@ -94,10 +95,11 @@ case $station in  #Identification de la station
 
             grep -E "$power;.*;.*;.*;.*;.*;.*;.*$" $fichier | cut -d';' -f2,3,5,7,8 | grep -E "^[0-9]+;-;.*;.*$" | cut -d';' -f1,4,5 | tr "-" "0" > tmp/data.txt 
 
-            #c
+
+            ./cy-wire tmp/data.txt
 
             mv output/renvois.csv output/hvb_comp$extension.csv
-            sed -i "1i Station;Capaciter;Consommation" output/hvb_comp$extension.csv
+            sed -i "1i Station;Capacité;Consommation" output/hvb_comp$extension.csv
 
 
         else
@@ -120,7 +122,7 @@ case $station in  #Identification de la station
             grep -E "$power;.*;.*;.*;.*;.*;.*;.*$" $fichier | cut -d';' -f3,4,5,7,8 | grep -E "^[0-9]+;-;.*;.*;.*$" | cut -d';' -f1,4,5 | tr "-" "0" > tmp/data.txt
 
             mv output/renvois.csv output/hva_comp$extension.csv
-            sed -i "1i Station;Capaciter;Consommation" output/hva_comp$extension.csv
+            sed -i "1i Station;Capacité;Consommation" output/hva_comp$extension.csv
 
 
         else
@@ -144,7 +146,7 @@ case $station in  #Identification de la station
                 grep -E "$power;.*;.*;.*;.*;.*;.*;.*$" $fichier | cut -d';' -f4,5,6,7,8 | grep -E "^[0-9]+;.*;-;.*;.*$" | cut -d';' -f1,4,5 | tr "-" "0" > tmp/data.txt
 
                 mv output/renvois.csv output/lv_comp$extension.csv
-                sed -i "1i Station;Capaciter;Consommation" output/lv_comp$extension.csv
+                sed -i "1i Station;Capacité;Consommation" output/lv_comp$extension.csv
 
 
             ;;
@@ -156,17 +158,17 @@ case $station in  #Identification de la station
 
 
                 mv output/renvois.csv output/lv_indiv$extension.csv
-                sed -i "1i Station;Capaciter;Consommation" output/lv_indiv$extension.csv
+                sed -i "1i Station;Capacité;Consommation" output/lv_indiv$extension.csv
 
             ;;
 
             all)
 
-                 echo " lv -> all"
-                 grep -E "$power;.*;.*;.*;.*;.*;.*;.*$" $fichier | cut -d';' -f4,5,6,7,8 | grep -E "^[0-9]+.*$" | cut -d';' -f1,4,5 | tr "-" "0" > tmp/data.txt
+                echo " lv -> all"
+                grep -E "$power;.*;.*;.*;.*;.*;.*;.*$" $fichier | cut -d';' -f4,5,6,7,8 | grep -E "^[0-9]+.*$" | cut -d';' -f1,4,5 | tr "-" "0" > tmp/data.txt
 
                 mv output/renvois.csv output/lv_all$extension.csv
-                sed -i "1i Station;Capaciter;Consommation" output/lv_all$extension.csv
+                sed -i "1i Station;Capacité;Consommation" output/lv_all$extension.csv
 
             ;;
 
