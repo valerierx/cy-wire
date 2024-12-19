@@ -21,6 +21,8 @@ done
 fichier=$1
 station=$2
 client=$3
+power=$4
+
 
 
 if [ ! -f $fichier ] #assertion
@@ -40,12 +42,27 @@ then
 fi
 
 
+if [ "$power" = "all" ]
+    then
+        power="^[0-9]+"
+        extension=""
+    
+elif [ $power -ge 6 ]
+    then
+        echo "Erreur : option de power plant"
+        cat README.txt 
+        exit 0
+else
+        extention="_$power"
+fi
+
 if [  -d "tmp" ]
 then
-
-    echo "Le dossier tmp existe, suppression de son contenu."
-    rm tmp/*
-
+    if [ ! -z "$(ls -A tmp/)" ]
+    then
+        echo "Le dossier tmp n'est pas vide, suppression de son contenu."
+        rm tmp/*
+    fi
 else
 
     echo "Le dossier tmp existe pas, création du dossier"
@@ -54,7 +71,7 @@ else
 fi
 
 
-
+chrono1=`date +%s` #début du chronometrage du traitement
 
 
 case $station in  #Identification de la station
@@ -64,7 +81,14 @@ case $station in  #Identification de la station
 
         if [ "$client" = "comp" ] # Vérification option
         then
+
             echo "Option hvb entreprise -> suite en c."
+
+            grep -E "$power;.*;.*;.*;.*;.*;.*;.*$" $fichier | cut -d';' -f2,3,5,7,8 | grep -E "^[0-9]+;-;.*;.*$" | cut -d';' -f1,4,5 | tr "-" "0" > tmp/data.txt 
+
+            #c
+
+            mv output/renvois.csv hvb_comp.csv
 
         else
 
@@ -81,6 +105,7 @@ case $station in  #Identification de la station
         if [ "$client" = "comp" ] # Vérification option
         then
             echo "Option hva entreprise -> suite en c."
+            grep -E "$power;.*;.*;.*;.*;.*;.*;.*$" $fichier | cut -d';' -f3,4,5,7,8 | grep -E "^[0-9]+;-;.*;.*;.*$" | cut -d';' -f1,4,5 | tr "-" "0" > tmp/data.txt
 
         else
 
@@ -100,18 +125,21 @@ case $station in  #Identification de la station
             comp)
 
                 echo "lv -> comp"
+                grep -E "$power;.*;.*;.*;.*;.*;.*;.*$" $fichier | cut -d';' -f4,5,6,7,8 | grep -E "^[0-9]+;.*;-;.*;.*$" | cut -d';' -f1,4,5 | tr "-" "0" > tmp/data.txt
 
             ;;
 
             indiv)
 
                 echo "lv -> indiv"
+                grep -E "$power;.*;.*;.*;.*;.*;.*;.*$" $fichier | cut -d';' -f4,5,6,7,8 | grep -E "^[0-9]+;-;.*$" | cut -d';' -f1,4,5 | tr "-" "0" > tmp/data.txt
 
             ;;
 
             all)
 
-                 echo " lv -> all"
+                echo " lv -> all"
+                grep -E "$power;.*;.*;.*;.*;.*;.*;.*$" $fichier | cut -d';' -f4,5,6,7,8 | grep -E "^[0-9]+.*$" | cut -d';' -f1,4,5 | tr "-" "0" > tmp/data.txt
 
             ;;
 
@@ -135,6 +163,12 @@ case $station in  #Identification de la station
 
     ;;
 
-esac
+esac    
 
+chrono2=`date +%s`
 
+let Chrono=$(($chrono2 - $chrono1))
+let m=$(($Chrono / 60))
+let s=$(($Chrono % 60))
+
+echo "Temps de traitement : $m minutes $s secondes"
