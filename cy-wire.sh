@@ -58,16 +58,16 @@ fi
 
 
 
-if [  -d "tmp" ]
+if [  -d "/tmp/cy-wire" ]
 then
 
-    echo "Le dossier tmp existe, suppression de son contenu."
-    rm tmp/*
+    echo "Le dossier /tmp/cy-wire existe, suppression de son contenu."
+    rm /tmp/cy-wire/*
 
 else
 
-    echo "Le dossier tmp existe pas, création du dossier"
-    mkdir tmp
+    echo "Le dossier /tmp/cy-wire existe pas, création du dossier"
+    mkdir /tmp/cy-wire
 
 fi
 
@@ -80,7 +80,7 @@ fi
 
 
 
-chrono1=`date +%s` #début du chronometrage du traitement
+chrono1=$(date +%s%N) #début du chronometrage du traitement
 
 
 case $station in  #Identification de la station
@@ -93,13 +93,12 @@ case $station in  #Identification de la station
 
             echo "Option hvb entreprise."
 
-            grep -E "$power;.*;.*;.*;.*;.*;.*;.*$" $fichier | cut -d';' -f2,3,5,7,8 | grep -E "^[0-9]+;-;.*;.*$" | cut -d';' -f1,4,5 | tr "-" "0" > tmp/data.txt 
+            grep -E "$power;.*;.*;.*;.*;.*;.*;.*$" $fichier | cut -d';' -f2,3,5,7,8 | grep -E "^[0-9]+;-;.*;.*$" | cut -d';' -f1,4,5 | tr "-" "0" > /tmp/cy-wire/data.txt 
 
 
-            ./cy-wire tmp/data.txt
+            ./cy-wire /tmp/cy-wire/data.txt
 
             mv output/renvois.csv output/hvb_comp$extension.csv
-            sed -i "1i Station;Capacite;Consommation" output/hvb_comp$extension.csv
 
 
         else
@@ -118,13 +117,11 @@ case $station in  #Identification de la station
         then
 
             echo "Option hva entreprise"
-            grep -E "$power;.*;.*;.*;.*;.*;.*;.*$" $fichier | cut -d';' -f3,4,5,7,8 | grep -E "^[0-9]+;-;.*;.*;.*$" | cut -d';' -f1,4,5 | tr "-" "0" > tmp/data.txt
+            grep -E "$power;.*;.*;.*;.*;.*;.*;.*$" $fichier | cut -d';' -f3,4,5,7,8 | grep -E "^[0-9]+;-;.*;.*;.*$" | cut -d';' -f1,4,5 | tr "-" "0" > /tmp/cy-wire/data.txt
 
-            ./cy-wire tmp/data.txt
+            ./cy-wire /tmp/cy-wire/data.txt
 
             mv output/renvois.csv output/hva_comp$extension.csv
-            sed -i "1i Station;Capacite;Consommation" output/hva_comp$extension.csv
-
 
         else
 
@@ -144,38 +141,33 @@ case $station in  #Identification de la station
             comp)
 
                 echo "lv -> comp"
-                grep -E "$power;.*;.*;.*;.*;.*;.*;.*$" $fichier | cut -d';' -f4,5,6,7,8 | grep -E "^[0-9]+;.*;-;.*;.*$" | cut -d';' -f1,4,5 | tr "-" "0" > tmp/data.txt
+                grep -E "$power;.*;.*;.*;.*;.*;.*;.*$" $fichier | cut -d';' -f4,5,6,7,8 | grep -E "^[0-9]+;.*;-;.*;.*$" | cut -d';' -f1,4,5 | tr "-" "0" > /tmp/cy-wire/data.txt
 
-                ./cy-wire tmp/data.txt
+                ./cy-wire /tmp/cy-wire/data.txt
      
                 mv output/renvois.csv output/lv_comp$extension.csv
-                sed -i "1i Station;Capacite;Consommation" output/lv_comp$extension.csv
-
-
+                
             ;;
 
             indiv)
 
                 echo "lv -> indiv"
-                grep -E "$power;.*;.*;.*;.*;.*;.*;.*$" $fichier | cut -d';' -f4,5,6,7,8 | grep -E "^[0-9]+;-;.*$" | cut -d';' -f1,4,5 | tr "-" "0" > tmp/data.txt
+                grep -E "$power;.*;.*;.*;.*;.*;.*;.*$" $fichier | cut -d';' -f4,5,6,7,8 | grep -E "^[0-9]+;-;.*$" | cut -d';' -f1,4,5 | tr "-" "0" > /tmp/cy-wire/data.txt
 
-                ./cy-wire tmp/data.txt
+                ./cy-wire /tmp/cy-wire/data.txt
 
                 mv output/renvois.csv output/lv_indiv$extension.csv
-                sed -i "1i Station;Capacite;Consommation" output/lv_indiv$extension.csv
 
             ;;
 
             all)
 
                 echo " lv -> all"
-                grep -E "$power;.*;.*;.*;.*;.*;.*;.*$" $fichier | cut -d';' -f4,5,6,7,8 | grep -E "^[0-9]+.*$" | cut -d';' -f1,4,5 | tr "-" "0" > tmp/data.txt
+                grep -E "$power;.*;.*;.*;.*;.*;.*;.*$" $fichier | cut -d';' -f4,5,6,7,8 | grep -E "^[0-9]+.*$" | cut -d';' -f1,4,5 | tr "-" "0" > /tmp/cy-wire/data.txt
 
-                ./cy-wire tmp/data.txt
+                ./cy-wire /tmp/cy-wire/data.txt
 
                 mv output/renvois.csv output/lv_all$extension.csv
-                sed -i "1i Station;Capacite;Consommation" output/lv_all$extension.csv
-
             ;;
 
             *)
@@ -199,9 +191,7 @@ case $station in  #Identification de la station
     ;;
 
 esac
-
-
-chrono2=`date +%s`
+chrono2=$((($(date +%s%N) - $ts)/1000000))
 
 let Chrono=$(($chrono2 - $chrono1))
 let m=$(($Chrono / 60))
