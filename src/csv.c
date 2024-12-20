@@ -8,14 +8,14 @@
  */
 
 Station* lecture_fichier(char * chemin, Station * fstation){
-    FILE* fichier=fopen(chemin,"r+");
+    FILE* fichier=fopen(chemin,"r+"); //ouverture du fichier en mode lecture et écriture
     Station * noeud = NULL;
-    int id;
+    //Initialisation des variables pour la somme
+    int id;   
     long long capacite=0;
     long long consommation=0;
     char ligne[256];
     int h=0; //Equilibrage AVL;
-    int surconsommation;
 
     if(fichier==NULL){
         printf("Impossible d'ouvrir le fichier\n");
@@ -23,16 +23,12 @@ Station* lecture_fichier(char * chemin, Station * fstation){
     }
 
     while(fgets(ligne,sizeof(ligne),fichier)){
-        sscanf(ligne,"%d;%lld;%lld",&id,&capacite,&consommation);
-        noeud = rechercheNoeud(fstation,id); // creer la fonction rechercheNoeud dans avl.c
-        if(noeud!=NULL){
+        sscanf(ligne,"%d;%lld;%lld",&id,&capacite,&consommation);//Enregistrements des paramètres dans un ligne formatée
+        noeud = rechercheNoeud(fstation,id); //rechercher si cette station avec cette ID existe déjà
+        if(noeud!=NULL){ //si la station existe on met à jour les valeurs
             noeud->capacite=noeud->capacite+capacite;
             noeud->consommation=noeud->consommation+consommation;
-            /*if((noeud->capacite - noeud->consommation)<0){
-                surconsommation=-(noeud->capacite - noeud->consommation);
-                printf("La station %d est en surconsommation de %d ",id,surconsommation);
-            }*/
-        } else {
+        } else {//sinon on insère l'insère dans l'avl
             fstation=insererStation(fstation,id,capacite,consommation,&h);
         }
     }
@@ -43,12 +39,12 @@ Station* lecture_fichier(char * chemin, Station * fstation){
 
 void ecriture_fichier(Station * fstation) {
     FILE * sortie = NULL;
-    sortie = fopen("output/renvois.csv", "a+");
+    sortie = fopen("output/renvois.csv", "a+"); //ouverture du fichier en mode ajout dans le dossier output
     if(sortie == NULL) {
         printf("Erreur création fichier sortie");
         exit(1);
     }
-    fprintf(sortie, "Station;Capacite;Consommation;Diff\n");
-    parcoursInfixe(fstation, sortie);
+    fprintf(sortie, "Station;Capacite;Consommation;Difference\n");//ecriture dans l'en-tête du CSV
+    parcoursInfixe(fstation, sortie); //Parcours dans l'ordre croissant les données du fichier
     fclose(sortie);
 }
