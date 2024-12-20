@@ -42,7 +42,7 @@ int existeFilsDroit(Station * a) {
 }
 
 void traiter(Station * a, FILE * fichier) {
-    fprintf(fichier,"%d;%lld;%lld\n",a->identifiant,a->capacite,a->consommation);
+    fprintf(fichier,"%d;%lld;%lld;%lld\n",a->identifiant,a->capacite,a->consommation, a->capacite - a->consommation);
     //printf("[id = %d, cap = %lld, conso = %lld, equi = %d]\n", a->identifiant, a->capacite, a->consommation, a->equilibre);
 }
 

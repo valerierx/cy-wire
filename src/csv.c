@@ -48,7 +48,7 @@ void ecriture_fichier(Station * fstation) {
         printf("Erreur création fichier sortie");
         exit(1);
     }
-    fprintf(sortie, "Station;Capacite;Consommation\n");
+    fprintf(sortie, "Station;Capacite;Consommation;Diff\n");
     parcoursInfixe(fstation, sortie);
     fclose(sortie);
 }
