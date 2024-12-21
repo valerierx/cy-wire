@@ -80,7 +80,7 @@ fi
 
 
 
-chrono1=$(date +%s%N) #début du chronometrage du traitement
+chrono1=$(date +%s) #début du chronometrage du traitement
 
 
 case $station in  #Identification de la station
@@ -163,15 +163,18 @@ case $station in  #Identification de la station
             all)
 
                 echo " lv -> all"
-                grep -E "$power;.*;.*;.*;.*;.*;.*;.*$" $fichier | cut -d';' -f4,5,6,7,8 | grep -E "^[0-9]+.*$" | cut -d';' -f1,4,5 | tr "-" "0" > /tmp/cy-wire/data.txt
+                grep -E "$power;.*;.*;.*;.*;.*;.*;.*$" $fichier | cut -d';' -f4,5,6,7,8 | grep -E "^[0-9]+.*$" | cut -d';' -f1,4,5 | tr "-" "0"  > /tmp/cy-wire/data.txt
 
                 ./cy-wire /tmp/cy-wire/data.txt
 
+                sort output/renvois.csv -k2 -t';' -n > output/tmp.csv #Besoin d'un fichier temporaire pour étudier la version trié de renvois.csv
 
-                head -n11 output/renvois.csv > output/lv_all_minmax$extension.csv
-                tail output/renvois.csv >> output/lv_all_minmax$extension.csv
+                head -n11 output/tmp.csv > output/lv_all_minmax$extension.csv
+                tail output/tmp.csv  >> output/lv_all_minmax$extension.csv
+                
 
                 rm output/renvois.csv
+                rm output/tmp.csv
 
             ;;
 
@@ -196,7 +199,7 @@ case $station in  #Identification de la station
     ;;
 
 esac
-chrono2=$((($(date +%s%N) - $ts)/1000000))
+chrono2=$(date +%s)
 
 let Chrono=$(($chrono2 - $chrono1))
 let m=$(($Chrono / 60))

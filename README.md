@@ -10,7 +10,7 @@ Ce programme sert à faire la synthèse des données d'un système de distributi
 ### SYNOPSIS
 
 ```sh
-./cy-wire.sh [fichier] [type de station] [type de consommateur]
+./cy-wire.sh [fichier] [type de station] [type de consommateur] [numéro de centrale]
 ```
 
 ### DESCRIPTION
@@ -29,7 +29,14 @@ Valeurs possibles: `hva`, `hvb` ou `lv`.
 
 Spécifie le type de consommateur: les particuliers, les entreprises ou les deux.
 
-Valeurs possibles: `all`, `indiv` ou `comp`
+Valeurs possibles: `all`, `indiv` ou `comp`.
+
+**[numéro de centrale]**
+
+Correspond à l'identifiant de la centrale mère des options précédentes. 
+
+Valeurs possibles: `[1:5]`, `all`.
+
 
 ### ATTENTION
 
