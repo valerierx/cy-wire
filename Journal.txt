@@ -1,30 +1,10 @@
-
-We du 1/12/2024
-
-Prise de connaissance du sujet par tout le groupe sur le pdf disponible sur moodle
-
-
-
-04/12/2024
-
-Prise en main de git pour Yanis et Gweltaz sous la tutel de Valérie 
-
-
-05/12/2024
-
-Prise en main de git
-On commence les programme en shell -> ajout du cy-wire.sh
-création du Makefile
-ajout des fichier de code d'avl
-
-
-12/12/2024
-Ajout du tiret -h
-
-
-
-19/12/2024
-
+Le 01/12/2024, l'ensemble du groupe a pris connaissance du sujet disponible sur moodle. Cette étape nous a permis de comprendre les enjeux et les attentes du projet, ainsi que de définir une stratègie de travail de groupe.
+Le 04/11/2024, Yanis et Gweltaz ont été initiés à l'utilisation de Git sous la supervision de Valérie. Cela a permis de leur enseigner les bases de la gestion de version, notamment la création de dépôts,les commits, et les manipulations courantes comme les pull, push...
+Le 05/12/2024, la prise en main de GIT s'est poursuivie, consolidant les compétences du groupe. Cela a permit de créer le script cy-wire.sh, le programme en SHELL dédié au projet. Ainsi que la mise en place du fichier Makefile pour automatiser la compilation et l'éxecution du programme et l'intégration du code AVL, une des bases essentielle pour le traitement de données.
+Le 12/12/2024, nous avons ajouté au support le tiret -h.
+Une grande partie du script en Shell a été développée par Gweltaz.
+Yanis quant à lui à fait une grand partie du code C.
+Et valérie s'est occupé principalement de la gestion des erreus pour renforcer la fiabilité du code. Dans l'ensemble, la collaboration s'est bien déroulée, chque membre ayant apporté une contribution précieuse, l'équipe a su mainteniru une bonne communication et résoudre les événtuels problèmes rencontrés rapidement.
 
 
 
