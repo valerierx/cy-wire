@@ -1,7 +1,7 @@
 all: c
 
 c:
-	make -C src/
+	make -C codeC/
 
 mrproper:
-	make -C src/ mrproper
+	make -C codeC/ mrproper

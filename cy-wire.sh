@@ -71,13 +71,24 @@ else
 
 fi
 
-if [ ! -d "output" ]
+if [  -d "tmp" ]
 then
-
-    echo "Le dossier output n'existe pas, création du dossier"
-    mkdir output
+    rm tmp/*
 fi
 
+if [ ! -d "tests" ]
+then
+
+    echo "Le dossier tests n'existe pas, création du dossier"
+    mkdir tests
+fi
+
+if [ ! -d "graphs" ]
+then
+
+    echo "Le dossier graphs n'existe pas, création du dossier"
+    mkdir graphs
+fi
 
 
 chrono1=$(date +%s) #début du chronometrage du traitement
@@ -98,13 +109,13 @@ case $station in  #Identification de la station
 
             ./cy-wire /tmp/cy-wire/data.txt
 
-            mv output/renvois.csv output/hvb_comp$extension.csv
+            mv tests/renvois.csv tests/hvb_comp$extension.csv
 
 
         else
 
             echo "Erreur Option impossible avec les hvb"
-            cat README.md
+            cat README.md   
             exit 2
 
         fi
@@ -121,7 +132,7 @@ case $station in  #Identification de la station
 
             ./cy-wire /tmp/cy-wire/data.txt
 
-            mv output/renvois.csv output/hva_comp$extension.csv
+            mv tests/renvois.csv tests/hva_comp$extension.csv
 
         else
 
@@ -145,7 +156,7 @@ case $station in  #Identification de la station
 
                 ./cy-wire /tmp/cy-wire/data.txt
      
-                mv output/renvois.csv output/lv_comp$extension.csv
+                mv tests/renvois.csv tests/lv_comp$extension.csv
                 
             ;;
 
@@ -156,7 +167,7 @@ case $station in  #Identification de la station
 
                 ./cy-wire /tmp/cy-wire/data.txt
 
-                mv output/renvois.csv output/lv_indiv$extension.csv
+                mv tests/renvois.csv tests/lv_indiv$extension.csv
 
             ;;
 
@@ -167,14 +178,22 @@ case $station in  #Identification de la station
 
                 ./cy-wire /tmp/cy-wire/data.txt
 
-                sort output/renvois.csv -k2 -t';' -n > output/tmp.csv #Besoin d'un fichier temporaire pour étudier la version trié de renvois.csv
+                sort tests/renvois.csv -k2 -t';' -n > tmp/tmp.csv #Besoin d'un fichier temporaire pour étudier la version trié de renvois.csv
 
-                head -n11 output/tmp.csv > output/lv_all_minmax$extension.csv
-                tail output/tmp.csv  >> output/lv_all_minmax$extension.csv
+                head -n 11 tmp/tmp.csv | tail -n 10 > tmp/tmp2.csv
+                tail tmp/tmp.csv >> tmp/tmp2.csv
                 
+                head -n 1 tmp/tmp.csv > tests/lv_all_minmax$extension.csv
+                sort tmp/tmp2.csv -k4 -t';' -n >> tests/lv_all_minmax$extension.csv # tri par différence consommation capacité
+                cat tests/lv_all_minmax$extension.csv
 
-                rm output/renvois.csv
-                rm output/tmp.csv
+
+                rm tests/renvois.csv
+                rm tmp/tmp.csv
+                rm tmp/tmp2.csv
+
+                echo "Génération du graphique"
+                gnuplot -p graphe.gp
 
             ;;
 

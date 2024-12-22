@@ -1,12 +1,42 @@
-Le 01/12/2024, l'ensemble du groupe a pris connaissance du sujet disponible sur moodle. Cette étape nous a permis de comprendre les enjeux et les attentes du projet, ainsi que de définir une stratègie de travail de groupe.
-Le 04/11/2024, Yanis et Gweltaz ont été initiés à l'utilisation de Git sous la supervision de Valérie. Cela a permis de leur enseigner les bases de la gestion de version, notamment la création de dépôts,les commits, et les manipulations courantes comme les pull, push...
-Le 05/12/2024, la prise en main de GIT s'est poursuivie, consolidant les compétences du groupe. Cela a permit de créer le script cy-wire.sh, le programme en SHELL dédié au projet. Ainsi que la mise en place du fichier Makefile pour automatiser la compilation et l'éxecution du programme et l'intégration du code AVL, une des bases essentielle pour le traitement de données.
-Le 12/12/2024, nous avons ajouté au support le tiret -h.
+Le 01/12/2024, l'ensemble du groupe a pris connaissance du sujet disponible sur Moodle. Cette étape nous a permis de comprendre les enjeux et les attentes du projet, ainsi que de définir une stratégie de travail de groupe.
+
+Le 04/12/2024, Yanis et Gweltaz ont été initiés à l'utilisation de Git sous la supervision de Valérie. Cela a permis de leur enseigner les bases de la gestion de version, notamment la création de dépôts, les commits, et les manipulations courantes comme les pull, push...
+
+Le 05/12/2024, la prise en main de Git s'est poursuivie, consolidant les compétences du groupe. Cela a permis de créer le script cy-wire.sh, le programme en SHELL dédié au projet, ainsi que la mise en place du fichier Makefile pour automatiser la compilation et l'exécution du programme, et l'intégration du code AVL, une des bases essentielles pour le traitement de données.
+
+Le 11/12/2024 :
+
+    Création de l'option -h.
+    Avancement sur le Shell :
+        Vérification de l'existence de fichiers.
+        Création du case.
+
+Le 12/12/2024, l'option -h est fonctionnelle. Avancement sur la partie C du projet : ajout de fonctions sur les AVL, création du fichier géré par la partie en C.
+
+Le 15/12/2024, avancement sur la partie en C.
+
+Le 16/12/2024, création de la procédure de traitement de fichier en C.
+
+Le 17/12/2024 :
+
+    Assertion de la présence de l'exécutable.
+    Poursuite du traitement de fichiers en C.
+    Nouveau README.
+
+Le 19/12/2024 :
+
+    Assertion de l'existence du dossier output.
+    Jonction entre la partie Shell et la partie C du projet.
+    Ajout du chronométrage des temps de traitement.
+    Optimisation des temps de traitement.
+    Création des fichiers de renvoi.
+
+Le 20/12/2024, ajout de la colonne "différence" dans les fichiers de sortie.
+
+Le 21/12/2024, ajout d'un traitement spécial lors des lv_min_max pour les fichiers de sortie.
+
+Le 22/12/2024, ajout de la génération de graphique avec GnuPlot lors des lv_all.
+
 Une grande partie du script en Shell a été développée par Gweltaz.
-Yanis quant à lui à fait une grand partie du code C.
-Et valérie s'est occupé principalement de la gestion des erreus pour renforcer la fiabilité du code. Dans l'ensemble, la collaboration s'est bien déroulée, chque membre ayant apporté une contribution précieuse, l'équipe a su mainteniru une bonne communication et résoudre les événtuels problèmes rencontrés rapidement.
-
-
-
-
-
+Yanis, quant à lui, a fait une grande partie du code C.
+Et Valérie s'est occupée principalement de la gestion des erreurs pour renforcer la fiabilité du code. Dans l'ensemble, la collaboration s'est bien déroulée. Chaque membre ayant apporté une contribution précieuse, l'équipe a su maintenir une bonne communication et résoudre les éventuels problèmes rencontrés rapidement.
