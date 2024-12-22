@@ -1,0 +1,32 @@
+
+We du 1/12/2024
+
+Prise de connaissance du sujet par tout le groupe sur le pdf disponible sur moodle
+
+
+
+04/12/2024
+
+Prise en main de git pour Yanis et Gweltaz sous la tutel de Valérie 
+
+
+05/12/2024
+
+Prise en main de git
+On commence les programme en shell -> ajout du cy-wire.sh
+création du Makefile
+ajout des fichier de code d'avl
+
+
+12/12/2024
+Ajout du tiret -h
+
+
+
+19/12/2024
+
+
+
+
+
+
